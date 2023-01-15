@@ -11,9 +11,20 @@ interface iProps {
 }
 
 const SingleTodo: FC<iProps> = ({ todo, todos, setTodos }) => {
+  const handleDone = (id: number) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+      )
+    );
+  };
   return (
     <form className={styles.todos__single}>
-      <span className={styles.todos__single__text}>{todo.todo}</span>
+      {todo.isDone ? (
+        <s className={styles.todos__single__text}>{todo.todo}</s>
+      ) : (
+        <span className={styles.todos__single__text}>{todo.todo}</span>
+      )}
       <div>
         <span className={styles.icon}>
           <AiFillEdit />
@@ -21,7 +32,7 @@ const SingleTodo: FC<iProps> = ({ todo, todos, setTodos }) => {
         <span className={styles.icon}>
           <AiFillDelete />
         </span>
-        <span className={styles.icon}>
+        <span className={styles.icon} onClick={() => handleDone(todo.id)}>
           <MdDone />
         </span>
       </div>
