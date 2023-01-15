@@ -18,6 +18,9 @@ const SingleTodo: FC<iProps> = ({ todo, todos, setTodos }) => {
       )
     );
   };
+  const handleDelete = (id: number) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
   return (
     <form className={styles.todos__single}>
       {todo.isDone ? (
@@ -29,7 +32,7 @@ const SingleTodo: FC<iProps> = ({ todo, todos, setTodos }) => {
         <span className={styles.icon}>
           <AiFillEdit />
         </span>
-        <span className={styles.icon}>
+        <span className={styles.icon} onClick={() => handleDelete(todo.id)}>
           <AiFillDelete />
         </span>
         <span className={styles.icon} onClick={() => handleDone(todo.id)}>
